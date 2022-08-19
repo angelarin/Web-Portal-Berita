@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="News Portal.">
+    <meta name="author" content="PHPGurukul">
+
+    <title>News Portal | Admin Panel</title>
+
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/components.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/pages.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/menu.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+
+    <script src="assets/js/modernizr.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+
+
+</head>
+
+
+<body class="bg-transparent">
+
+    <section>
+        <div class="container-alt">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <div class="wrapper-page">
+
+                        <div class="m-t-40 account-pages">
+                            <div class="text-center account-logo-box">
+                                <h2 class="text-uppercase">
+                                    <a href="index.html" class="text-success">
+                                        <span><img src="assets/images/Untitled3_20211204123035.png" alt="" height="56"></span>
+                                    </a>
+                                </h2>
+                            </div>
+                            <div class="card fat">
+                                <div class="card-body">
+                                    <h4 class="card-title">Daftar</h4>
+                                    <form method="POST" id="basic-form" action="register.php"
+                                        class="my-login-validation" novalidate="">
+
+                                        <div class="form-group">
+                                            <label for="username">Username</label>
+                                            <input id="username" type="text" class="form-control" name="username" onBlur="checkAvailability()" required><br>
+                                            <span id="user-availability-status" style="font-size:14px;"></span>
+                                            <div class="invalid-feedback">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input id="password" type="password" class="form-control" name="password"
+                                                required data-eye>
+                                            <div class="invalid-feedback">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="email">E-Mail</label>
+                                            <input id="email" type="email" class="form-control" name="email" required>
+                                            <div class="invalid-feedback">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group m-0">
+                                            <button type="submit" id="submit" name="submit" value="SUBMIT" class="btn btn-primary btn-block">
+                                                Register
+                                            </button>
+                                        </div>
+                                        <div class="mt-4 text-center">
+                                            Already have an account? <a href="index.php">Login</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        var resizefunc = [];
+    </script>
+
+    <!-- jQuery  -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/detect.js"></script>
+    <script src="assets/js/fastclick.js"></script>
+    <script src="assets/js/jquery.blockUI.js"></script>
+    <script src="assets/js/waves.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+    <script src="assets/js/jquery.scrollTo.min.js"></script>
+
+    <!-- App js -->
+    <script src="assets/js/jquery.core.js"></script>
+    <script src="assets/js/jquery.app.js"></script>
+    <script src="assets/js/modernizr.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    
+
+    <script>
+        $(document).ready(function () {
+            $("#basic-form").validate({
+                rules: {
+                    username: {
+                        required: true,
+                        minlength: 5
+                    },
+                    password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+                    username: {
+                        minlength: "Username should be at least 5 characters"
+                    },
+                    password: {
+                        required: "Please enter your password",
+                        min: "Password should be at least 8 character"
+                    },
+                    email: {
+                        email: "The email should be in the format: abc@domain.tld"
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        function checkAvailability() {
+            $("#loaderIcon").show();
+            jQuery.ajax({
+                url: "check_availability.php",
+                data: 'username=' + $("#username").val(),
+                type: "POST",
+                success: function(data) {
+                    $("#user-availability-status").html(data);
+                    $("#loaderIcon").hide();
+                },
+                error: function() {}
+            });
+        }
+    </script>
+</body>
+
+</html>
